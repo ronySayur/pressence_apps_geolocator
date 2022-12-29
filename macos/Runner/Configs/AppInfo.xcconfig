@@ -8,7 +8,7 @@
 PRODUCT_NAME = pressence_apps_geolocator
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.pressenceAppsGeolocator
+PRODUCT_BUNDLE_IDENTIFIER = com.sayurcode.pressenceAppsGeolocator
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.sayurcode. All rights reserved.

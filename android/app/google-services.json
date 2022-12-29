@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "971092063434",
+    "project_id": "pressenceapps",
+    "storage_bucket": "pressenceapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971092063434:android:f02869dbc55012e58cf033",
+        "android_client_info": {
+          "package_name": "com.sayurcode.pressence_apps_geolocator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971092063434-fo8j264r5htuk8ptdkg1k3bkoqif99h8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.sayurcode.pressence_apps_geolocator",
+            "certificate_hash": "3334d8638d7c8c072d0632577ee6b806cd50ba71"
+          }
+        },
+        {
+          "client_id": "971092063434-3c4tfadf3rar5ucstogvvl95tj66avc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAHT2TMRTz9Kd5bnGnU_whQx4_-bhr-1rM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971092063434-3c4tfadf3rar5ucstogvvl95tj66avc9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "971092063434-loje5mqjejalkfgo8pna2en6004d5gvg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sayurcode.pressenceAppsGeolocator"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

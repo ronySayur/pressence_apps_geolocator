@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.pressence_apps_geolocator">
+    package="com.sayurcode.pressence_apps_geolocator">
    <application
         android:label="pressence_apps_geolocator"
         android:name="${applicationName}"
