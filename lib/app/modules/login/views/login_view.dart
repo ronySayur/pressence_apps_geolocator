@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pressence_apps_geolocator/app/widgets/widgets.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -17,6 +18,7 @@ class LoginView extends GetView<LoginController> {
           padding: EdgeInsets.all(20),
           children: [
             TextField(
+              autocorrect: false,
               controller: controller.emailC,
               decoration: InputDecoration(
                 labelText: "Email",
@@ -47,7 +49,8 @@ class LoginView extends GetView<LoginController> {
                       )
                     : wBigText(text: "Loading"))),
             TextButton(
-                onPressed: () {}, child: wSmallText(text: "Lupa password?"))
+                onPressed: () => Get.toNamed(Routes.FORGOT_PASSWORD),
+                child: wSmallText(text: "Lupa password?"))
           ],
         ));
   }

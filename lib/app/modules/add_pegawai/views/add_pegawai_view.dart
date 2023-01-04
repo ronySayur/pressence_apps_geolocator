@@ -13,44 +13,41 @@ class AddPegawaiView extends GetView<AddPegawaiController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Add Pegawai'),
+          title: const Text('Tambah Pegawai'),
           centerTitle: true,
         ),
-        body: ListView(
-          padding: EdgeInsets.all(wDimension.height20),
-          children: [
-            TextField(
-              controller: controller.nipC,
-              decoration: InputDecoration(
-                  labelText: "NIP", border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: controller.nameC,
-              decoration: InputDecoration(
-                  labelText: "Name", border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              controller: controller.emailC,
-              decoration: InputDecoration(
-                  labelText: "Email", border: OutlineInputBorder()),
-            ),
-            SizedBox(height: 30),
-            Obx(() => ElevatedButton(
-                onPressed: () async {
-                  if (controller.isLoading.isFalse) {
-                    await controller.addPegawai();
-                  }
-                },
-                child: controller.isLoading.isFalse
-                    ? wSmallText(
-                        text: "Add Pegawai",
-                        color: Colors.white,
-                        weight: FontWeight.bold,
-                      )
-                    : CircularProgressIndicator()))
-          ]
-        ));
+        body: ListView(padding: EdgeInsets.all(wDimension.height20), children: [
+          TextField(
+            controller: controller.nipC,
+            decoration:
+                InputDecoration(labelText: "NIP", border: OutlineInputBorder()),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            controller: controller.nameC,
+            decoration: InputDecoration(
+                labelText: "Name", border: OutlineInputBorder()),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            controller: controller.emailC,
+            decoration: InputDecoration(
+                labelText: "Email", border: OutlineInputBorder()),
+          ),
+          SizedBox(height: 30),
+          Obx(() => ElevatedButton(
+              onPressed: () async {
+                if (controller.isLoading.isFalse) {
+                  await controller.addPegawai();
+                }
+              },
+              child: controller.isLoading.isFalse
+                  ? wSmallText(
+                      text: "Tambah Pegawai",
+                      color: Colors.white,
+                      weight: FontWeight.bold,
+                    )
+                  : CircularProgressIndicator()))
+        ]));
   }
 }

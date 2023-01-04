@@ -27,7 +27,6 @@ class LoginController extends GetxController {
         //Verifikasi email
         if (userCredential.user != null) {
           if (userCredential.user!.emailVerified == true) {
-          isLoading.value = false;
             if (passC.text == "password") {
               Get.snackbar("Peringatan", "Ubah password anda");
               Get.offAllNamed(Routes.NEW_PASSWORD);
@@ -42,19 +41,17 @@ class LoginController extends GetxController {
                 actions: [
                   OutlinedButton(
                       onPressed: () {
-                        isLoading.value = false;
+                        Get.back();
                         Get.back();
                       },
                       child: wSmallText(text: "Cancel")),
                   ElevatedButton(
                       onPressed: () async {
                         try {
-                          isLoading.value = false;
                           Get.snackbar("Berhasil", "Cek Email anda!");
                           await userCredential.user!.sendEmailVerification();
                           Get.back();
                         } catch (e) {
-                          isLoading.value = false;
                           Get.snackbar("Error", "$e");
                         }
                       },
@@ -65,9 +62,7 @@ class LoginController extends GetxController {
                 ]);
           }
         }
-          isLoading.value = false;
       } on FirebaseAuthException catch (e) {
-          isLoading.value = false;
         if (e.code == 'user-not-found') {
           Get.snackbar("Terjadi Kesalahan!", "Email tidak terdaftar");
           print('No user found for that email.');
@@ -76,8 +71,9 @@ class LoginController extends GetxController {
           Get.snackbar("Terjadi Kesalahan!", "Password salah!");
         }
       } catch (e) {
-          isLoading.value = false;
         print('$e');
+      } finally {
+        isLoading.value = false;
       }
     } else {
       Get.snackbar("Terjadi Kesalahan!", "Email dan password wajib diisi");

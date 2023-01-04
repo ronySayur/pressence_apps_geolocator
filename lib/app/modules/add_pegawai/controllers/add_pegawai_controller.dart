@@ -46,6 +46,7 @@ class AddPegawaiController extends GetxController {
             "password": "password",
             "email": emailC.text,
             "uid": uid,
+            "role": "pegawai",
             "createdAt": DateTime.now().toIso8601String()
           });
 
@@ -64,7 +65,6 @@ class AddPegawaiController extends GetxController {
           Get.snackbar("Berhhasil", "Berhasil menambahkan data pegawai");
         }
       } on FirebaseAuthException catch (e) {
-        isLoading.value = false;
 
         if (e.code == 'weak-password') {
           Get.snackbar("Peringatan", "Password yang digunakan terlalu lemah");
@@ -80,6 +80,9 @@ class AddPegawaiController extends GetxController {
         }
       } catch (e) {
         print(e);
+      }finally{
+        isLoading.value = false;
+
       }
     } else {
       Get.snackbar("Terjadi Kesalahan", "Password wajib diisi");

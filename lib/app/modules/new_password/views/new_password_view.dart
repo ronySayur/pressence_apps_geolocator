@@ -18,16 +18,25 @@ class NewPasswordView extends GetView<NewPasswordController> {
           padding: const EdgeInsets.all(20),
           children: [
             TextField(
-              autocorrect: false,
-              controller: controller.newPassC,
-              obscureText: true,
-              decoration: const InputDecoration(
-                  labelText: "New Password", border: OutlineInputBorder()),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () => controller.newPaswword(),
-                child: wBigText(text: "Continue", color: Colors.white))
+                autocorrect: false,
+                controller: controller.newPassC,
+                obscureText: true,
+                decoration: const InputDecoration(
+                    labelText: "New Password", border: OutlineInputBorder())),
+            SizedBox(height: wDimension.height20),
+            Obx(() => ElevatedButton(
+                onPressed: () async {
+                  if (controller.isLoading.isFalse) {
+                    await controller.newPaswword();
+                  }
+                },
+                child: controller.isLoading.isFalse
+                    ? wSmallText(
+                        text: "Login",
+                        color: Colors.white,
+                        weight: FontWeight.bold,
+                      )
+                    : wBigText(text: "Loading")))
           ],
         ));
   }
