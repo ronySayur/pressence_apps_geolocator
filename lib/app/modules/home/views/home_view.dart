@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -25,12 +26,22 @@ class HomeView extends GetView<HomeController> {
               ))
         ],
       ),
-      body: Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      body: Stack(
+        children: [Container()],
       ),
+      floatingActionButton: Obx(() => FloatingActionButton(
+            onPressed: () async {
+              if (controller.isLoading.isFalse) {
+                controller.isLoading.value = true;
+                await FirebaseAuth.instance.signOut();
+                controller.isLoading.value = false;
+                Get.offAllNamed(Routes.LOGIN);
+              }
+            },
+            child: controller.isLoading.isFalse
+                ? wAppIcon(icon: Icons.logout)
+                : CircularProgressIndicator(),
+          )),
     );
   }
 }

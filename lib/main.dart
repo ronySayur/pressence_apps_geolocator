@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,44 +29,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
-      title: "Presensi",
-      initialRoute: Routes.LOGIN,
-      getPages: AppPages.routes,
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+              home: Scaffold(body: Center(child: CircularProgressIndicator())));
+        }
+        //Get data
+        print(snapshot.data);
+        return GetMaterialApp(
+          title: "Presensi",
+          initialRoute: snapshot.data != null ? Routes.HOME : Routes.LOGIN,
+          getPages: AppPages.routes,
+        );
+      },
     );
-
-    // return FutureBuilder(
-    //   future: _initialization,
-    //   builder: (context, snapshot) {
-    //     if (snapshot.hasError) {
-    //       return ErrorScreen();
-    //     }
-    //     if (snapshot.connectionState == ConnectionState.done) {
-    //       return FutureBuilder(
-    //         future: Future.delayed(const Duration(seconds: 3)),
-    //         builder: (context, snapshot) {
-    //           if (snapshot.connectionState == ConnectionState.done) {
-    //             return Obx(() => GetMaterialApp(
-    //                   debugShowCheckedModeBanner: false,
-    //                   title: "ChatApp",
-    //                   initialRoute: authC.isSkipIntro.isTrue
-    //                       ? authC.isAuth.isTrue
-    //                           ? Routes.HOME
-    //                           : Routes.LOGIN
-    //                       : Routes.HOME,
-    //                   getPages: AppPages.routes,
-    //                 ));
-    //           }
-
-    //           return FutureBuilder(
-    //             future: authC.firstInitialized(),
-    //             builder: (context, snapshot) => const SplashScreen(),
-    //           );
-    //         },
-    //       );
-    //     }
-    //     return LoadingScreen();
-    //   },
-    // );
   }
 }

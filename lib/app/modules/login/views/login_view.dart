@@ -6,7 +6,6 @@ import 'package:pressence_apps_geolocator/app/widgets/widgets.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,13 +33,19 @@ class LoginView extends GetView<LoginController> {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () => controller.login(),
-                child: wSmallText(
-                  text: "Login",
-                  color: Colors.white,
-                  weight: FontWeight.bold,
-                )),
+            Obx(() => ElevatedButton(
+                onPressed: () async {
+                  if (controller.isLoading.isFalse) {
+                    await controller.login();
+                  }
+                },
+                child: controller.isLoading.isFalse
+                    ? wSmallText(
+                        text: "Login",
+                        color: Colors.white,
+                        weight: FontWeight.bold,
+                      )
+                    : wBigText(text: "Loading"))),
             TextButton(
                 onPressed: () {}, child: wSmallText(text: "Lupa password?"))
           ],

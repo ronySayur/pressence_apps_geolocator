@@ -37,14 +37,20 @@ class AddPegawaiView extends GetView<AddPegawaiController> {
                   labelText: "Email", border: OutlineInputBorder()),
             ),
             SizedBox(height: 30),
-            ElevatedButton(
-                onPressed: () => controller.addPegawai(),
-                child: wSmallText(
-                  text: "Add Pegawai",
-                  color: Colors.white,
-                  weight: FontWeight.bold,
-                ))
-          ],
+            Obx(() => ElevatedButton(
+                onPressed: () async {
+                  if (controller.isLoading.isFalse) {
+                    await controller.addPegawai();
+                  }
+                },
+                child: controller.isLoading.isFalse
+                    ? wSmallText(
+                        text: "Add Pegawai",
+                        color: Colors.white,
+                        weight: FontWeight.bold,
+                      )
+                    : CircularProgressIndicator()))
+          ]
         ));
   }
 }
