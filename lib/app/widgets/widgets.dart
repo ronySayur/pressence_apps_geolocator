@@ -61,6 +61,7 @@ class wBigText extends StatelessWidget {
     required this.text,
     this.size = 0,
     this.weight = FontWeight.normal,
+      this.align = TextAlign.start,
     this.overflow = TextOverflow.ellipsis,
   });
 
@@ -68,12 +69,14 @@ class wBigText extends StatelessWidget {
   TextOverflow overflow;
   double size;
   final String text;
+  TextAlign align;
   FontWeight weight;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
+      textAlign: align,
       overflow: overflow,
       style: TextStyle(
         color: color,
@@ -93,20 +96,20 @@ class wSmallText extends StatelessWidget {
       this.color = const Color(0xFF1e81b0),
       this.size = 12,
       this.height = 1.2,
-      this.textalign = TextAlign.start});
+      this.align = TextAlign.start});
 
   Color? color;
   FontWeight weight;
   double height;
   double size;
   final String text;
-  TextAlign textalign;
+  TextAlign align;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      textAlign: textalign,
+      textAlign: align,
       maxLines: 1,
       style: TextStyle(
         color: color,

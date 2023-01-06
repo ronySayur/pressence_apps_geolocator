@@ -36,6 +36,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               home: Scaffold(body: Center(child: CircularProgressIndicator())));
         }
+        
         //Get data
         print(snapshot.data);
         return GetMaterialApp(

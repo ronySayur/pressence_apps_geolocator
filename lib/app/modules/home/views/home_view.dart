@@ -32,7 +32,7 @@ class HomeView extends GetView<HomeController> {
                 //jika ini admin
                 if (role == "admin") {
                   return IconButton(
-                    onPressed: () => Get.toNamed(Routes.ADD_PEGAWAI),
+                    onPressed: () => Get.toNamed(Routes.PROFILE),
                     icon: wAppIcon(
                       icon: Icons.person,
                       size: wDimension.iconSize24,
