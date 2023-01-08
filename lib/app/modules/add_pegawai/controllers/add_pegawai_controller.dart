@@ -13,6 +13,7 @@ class AddPegawaiController extends GetxController {
   TextEditingController nipC = TextEditingController();
   TextEditingController nameC = TextEditingController();
   TextEditingController emailC = TextEditingController();
+  TextEditingController jobC = TextEditingController();
   TextEditingController passAdminC = TextEditingController();
 
   FirebaseAuth auth = FirebaseAuth.instance;
@@ -45,6 +46,7 @@ class AddPegawaiController extends GetxController {
             "name": nameC.text,
             "password": "password",
             "email": emailC.text,
+            "job": jobC.text,
             "uid": uid,
             "role": "pegawai",
             "createdAt": DateTime.now().toIso8601String()
@@ -92,6 +94,7 @@ class AddPegawaiController extends GetxController {
   Future<void> addPegawai() async {
     if (nipC.text.isNotEmpty &&
         nameC.text.isNotEmpty &&
+        jobC.text.isNotEmpty &&
         emailC.text.isNotEmpty) {
       isLoading.value = true;
       Get.defaultDialog(

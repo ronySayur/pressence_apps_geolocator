@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:pressence_apps_geolocator/app/widgets/widgets.dart';
 
@@ -27,6 +26,12 @@ class AddPegawaiView extends GetView<AddPegawaiController> {
             controller: controller.nameC,
             decoration: InputDecoration(
                 labelText: "Name", border: OutlineInputBorder()),
+          ),
+          SizedBox(height: 20),
+          TextField(
+            controller: controller.jobC,
+            decoration: InputDecoration(
+                labelText: "Perkerjaan", border: OutlineInputBorder()),
           ),
           SizedBox(height: 20),
           TextField(

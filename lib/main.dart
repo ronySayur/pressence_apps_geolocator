@@ -5,12 +5,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pressence_apps_geolocator/app/controllers/page_index_controller.dart';
 
 import 'app/controllers/auth_controller.dart';
 import 'app/routes/app_pages.dart';
-import 'app/utils/error_page.dart';
-import 'app/utils/loading_page.dart';
-import 'app/utils/splash_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -18,6 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  final pageC = Get.put(PageIndexController(), permanent: true);
   await GetStorage.init();
   runApp(MyApp());
 }
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
               home: Scaffold(body: Center(child: CircularProgressIndicator())));
         }
-        
+
         //Get data
         print(snapshot.data);
         return GetMaterialApp(

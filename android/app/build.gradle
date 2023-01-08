@@ -47,6 +47,7 @@ android {
         applicationId "com.sayurcode.pressence_apps_geolocator"
         minSdkVersion 19
         targetSdkVersion 28
+        compileSdkVersion 31
         versionCode 1
         versionName "1.0"
         multiDexEnabled true

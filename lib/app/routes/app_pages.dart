@@ -2,6 +2,10 @@ import 'package:get/get.dart';
 
 import '../modules/add_pegawai/bindings/add_pegawai_binding.dart';
 import '../modules/add_pegawai/views/add_pegawai_view.dart';
+import '../modules/all_presensi/bindings/all_presensi_binding.dart';
+import '../modules/all_presensi/views/all_presensi_view.dart';
+import '../modules/detail_presensi/bindings/detail_presensi_binding.dart';
+import '../modules/detail_presensi/views/detail_presensi_view.dart';
 import '../modules/forgot_password/bindings/forgot_password_binding.dart';
 import '../modules/forgot_password/views/forgot_password_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -26,44 +30,61 @@ class AppPages {
 
   static final routes = [
     GetPage(
-      name: _Paths.HOME,
-      page: () => const HomeView(),
-      binding: HomeBinding(),
-    ),
+        name: _Paths.HOME,
+        page: () => HomeView(),
+        binding: HomeBinding(),
+        transition: Transition.fadeIn),
     GetPage(
       name: _Paths.LOGIN,
       page: () => LoginView(),
+      transition: Transition.fadeIn,
       binding: LoginBinding(),
     ),
     GetPage(
       name: _Paths.ADD_PEGAWAI,
       page: () => const AddPegawaiView(),
+      transition: Transition.fadeIn,
       binding: AddPegawaiBinding(),
     ),
     GetPage(
       name: _Paths.NEW_PASSWORD,
       page: () => const NewPasswordView(),
+      transition: Transition.fadeIn,
       binding: NewPasswordBinding(),
     ),
     GetPage(
       name: _Paths.FORGOT_PASSWORD,
       page: () => const ForgotPasswordView(),
+      transition: Transition.fadeIn,
       binding: ForgotPasswordBinding(),
     ),
     GetPage(
       name: _Paths.PROFILE,
-      page: () => const ProfileView(),
+      page: () => ProfileView(),
+      transition: Transition.fadeIn,
       binding: ProfileBinding(),
     ),
     GetPage(
       name: _Paths.UPDATE_PROFILE,
-      page: () =>  UpdateProfileView(),
+      page: () => UpdateProfileView(),
+      transition: Transition.fadeIn,
       binding: UpdateProfileBinding(),
     ),
     GetPage(
       name: _Paths.UPDATE_PASSWORD,
       page: () => const UpdatePasswordView(),
+      transition: Transition.fadeIn,
       binding: UpdatePasswordBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_PRESENSI,
+      page: () => const DetailPresensiView(),
+      binding: DetailPresensiBinding(),
+    ),
+    GetPage(
+      name: _Paths.ALL_PRESENSI,
+      page: () => const AllPresensiView(),
+      binding: AllPresensiBinding(),
     ),
   ];
 }

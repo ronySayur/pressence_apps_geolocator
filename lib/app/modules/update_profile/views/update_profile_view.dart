@@ -60,15 +60,20 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                     );
                   } else {
                     if (user["profile"] != null) {
-                      return ClipOval(
-                        child: Container(
-                          height: wDimension.height20 * 5,
-                          width: wDimension.width20 * 5,
-                          child: Image.network(
-                            user["profile"],
-                            fit: BoxFit.cover,
+                      return Column(
+                        children: [
+                          ClipOval(
+                            child: Container(
+                              height: wDimension.height20 * 5,
+                              width: wDimension.width20 * 5,
+                              child: Image.network(
+                                user["profile"],
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           ),
-                        ),
+                          TextButton(onPressed: () =>controller.deleteProfile(user["uid"]), child: Text("Delete"))
+                        ],
                       );
                     } else {
                       return Text("No Image choosen");
