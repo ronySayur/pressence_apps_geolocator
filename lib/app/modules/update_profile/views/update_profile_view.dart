@@ -72,7 +72,10 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                               ),
                             ),
                           ),
-                          TextButton(onPressed: () =>controller.deleteProfile(user["uid"]), child: Text("Delete"))
+                          TextButton(
+                              onPressed: () =>
+                                  controller.deleteProfile(user["uid"]),
+                              child: Text("Delete"))
                         ],
                       );
                     } else {
@@ -81,9 +84,6 @@ class UpdateProfileView extends GetView<UpdateProfileController> {
                   }
                 },
               ),
-              // user["profile"] != null && user["profile"] != ""
-              //     ? Text("Foto Profil")
-              //     : Text("no choosen"),
               TextButton(
                   onPressed: () {
                     controller.pickImage();

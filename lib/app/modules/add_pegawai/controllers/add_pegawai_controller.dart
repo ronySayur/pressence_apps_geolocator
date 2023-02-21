@@ -56,18 +56,13 @@ class AddPegawaiController extends GetxController {
 
           await auth.signOut();
 
-          UserCredential userCredentialAdmin =
-              await auth.signInWithEmailAndPassword(
-            email: emailAdmin,
-            password: passAdminC.text,
-          );
+          userCredentialAdmin;
 
           Get.back();
           Get.back();
-          Get.snackbar("Berhhasil", "Berhasil menambahkan data pegawai");
+          Get.snackbar("Berhasil", "Berhasil menambahkan data pegawai");
         }
       } on FirebaseAuthException catch (e) {
-
         if (e.code == 'weak-password') {
           Get.snackbar("Peringatan", "Password yang digunakan terlalu lemah");
           print('The password provided is too weak.');
@@ -82,9 +77,8 @@ class AddPegawaiController extends GetxController {
         }
       } catch (e) {
         print(e);
-      }finally{
+      } finally {
         isLoading.value = false;
-
       }
     } else {
       Get.snackbar("Terjadi Kesalahan", "Password wajib diisi");

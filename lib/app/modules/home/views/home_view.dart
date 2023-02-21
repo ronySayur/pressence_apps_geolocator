@@ -125,24 +125,41 @@ class HomeView extends GetView<HomeController> {
                       borderRadius: BorderRadius.circular(wDimension.radius20),
                       color: Colors.grey[200],
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Column(children: [
-                          wSmallText(text: "Masuk"),
-                          wSmallText(text: "-")
-                        ]),
-                        Container(
-                          width: wDimension.width10 / 5,
-                          height: wDimension.height20 * 2,
-                          color: Colors.grey,
-                        ),
-                        Column(children: [
-                          wSmallText(text: "Keluar"),
-                          wSmallText(text: "-")
-                        ]),
-                      ],
-                    ),
+                    child: StreamBuilder<
+                            DocumentSnapshot<Map<String, dynamic>>>(
+                        stream: controller.streamTodayPresence(),
+                        builder: (context, snaptoday) {
+                          if (snaptoday.connectionState ==
+                              ConnectionState.waiting) {
+                            return Center(child: CircularProgressIndicator());
+                          }
+
+                          var dataToday = snaptoday.data!.data();
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(children: [
+                                wSmallText(text: "Masuk"),
+                                wSmallText(
+                                    text: dataToday?["masuk"] == null
+                                        ? "-"
+                                        : "${DateFormat.jms().format(DateTime.parse(dataToday?['masuk']['date']))}")
+                              ]),
+                              Container(
+                                width: wDimension.width10 / 5,
+                                height: wDimension.height20 * 2,
+                                color: Colors.grey,
+                              ),
+                              Column(children: [
+                                wSmallText(text: "Keluar"),
+                                                                wSmallText(
+                                    text: dataToday?["keluar"] == null
+                                        ? "-"
+                                        : "${DateFormat.jms().format(DateTime.parse(dataToday?['keluar']['date']))}")
+                              ]),
+                            ],
+                          );
+                        }),
                   ),
                   SizedBox(height: wDimension.height20),
                   Divider(
@@ -167,66 +184,92 @@ class HomeView extends GetView<HomeController> {
                     ],
                   ),
                   SizedBox(height: wDimension.height10),
-                  ListView.builder(
-                    padding: EdgeInsets.all(10),
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 20),
-                        child: Material(
-                          borderRadius:
-                              BorderRadius.circular(wDimension.radius20),
-                          color: Colors.grey[200],
-                          child: InkWell(
-                            onTap: () {
-                              Get.toNamed(Routes.DETAIL_PRESENSI);
-                            },
-                            borderRadius:
-                                BorderRadius.circular(wDimension.radius20),
-                            child: Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      wSmallText(
-                                        text: "Masuk",
-                                        weight: FontWeight.bold,
-                                      ),
-                                      wSmallText(
-                                        text:
-                                            "${DateFormat.yMMMEd().format(DateTime.now())}",
-                                        weight: FontWeight.bold,
-                                      )
-                                    ],
+                  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                      stream: controller.streamLastPresence(),
+                      builder: (context, snapPresence) {
+                        if (snapPresence.connectionState ==
+                            ConnectionState.waiting) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        
+                        if (snapPresence.data?.docs.length == 0 ||
+                            snapPresence.data == null) {
+                          return SizedBox(
+                            height: wDimension.height20 * 10,
+                            child: Center(
+                                child: Text("Belum ada histori presensi")),
+                          );
+                        }
+                        return ListView.builder(
+                          padding: EdgeInsets.all(10),
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: snapPresence.data!.docs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            //Get data from json to map string dynamic
+                            Map<String, dynamic> data =
+                                snapPresence.data!.docs[index].data();
+                            return Padding(
+                              padding: const EdgeInsets.only(bottom: 20),
+                              child: Material(
+                                borderRadius:
+                                    BorderRadius.circular(wDimension.radius20),
+                                color: Colors.grey[200],
+                                child: InkWell(
+                                  onTap: () {
+                                    Get.toNamed(Routes.DETAIL_PRESENSI);
+                                  },
+                                  borderRadius: BorderRadius.circular(
+                                      wDimension.radius20),
+                                  child: Container(
+                                    padding: EdgeInsets.all(20),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            wSmallText(
+                                              text: "Masuk",
+                                              weight: FontWeight.bold,
+                                            ),
+                                            wSmallText(
+                                              text:
+                                                  "${DateFormat.yMMMEd().format(DateTime.parse(data["date"]))}",
+                                              weight: FontWeight.bold,
+                                            )
+                                          ],
+                                        ),
+                                        wSmallText(
+                                            text: data['masuk']?['date'] == null
+                                                ? "-"
+                                                : "${DateFormat.jms().format(DateTime.parse(data['masuk']!['date']))}"),
+                                        SizedBox(height: wDimension.height10),
+                                        wSmallText(
+                                          text: "Keluar",
+                                          weight: FontWeight.bold,
+                                        ),
+                                        wSmallText(
+                                            text: data['keluar']?['date'] ==
+                                                    null
+                                                ? "-"
+                                                : "${DateFormat.jms().format(DateTime.parse(data['keluar']!['date']))}"),
+                                      ],
+                                    ),
                                   ),
-                                  wSmallText(
-                                      text:
-                                          "${DateFormat.jms().format(DateTime.now())}"),
-                                  SizedBox(height: wDimension.height10),
-                                  wSmallText(
-                                    text: "Keluar",
-                                    weight: FontWeight.bold,
-                                  ),
-                                  wSmallText(
-                                      text:
-                                          "${DateFormat.jms().format(DateTime.now())}"),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
+                            );
+                          },
+                        );
+                      }),
                 ],
               );
             } else {
