@@ -30,19 +30,24 @@ class UpdateProfileController extends GetxController {
       isLoading.value = true;
       try {
         Map<String, dynamic> data = {"nama": nameC.text};
+
         if (image != null) {
           File file = File(image!.path);
           String ext = image!.name.split(".").last;
 
           await storage.ref('$uid/profile.$ext').putFile(file);
+
           String urlImage =
               await storage.ref('$uid/profile.$ext').getDownloadURL();
 
           data.addAll({"profile": urlImage});
         }
         firestore.collection("pegawai").doc(uid).update(data);
-        image=null;
+
+        image = null;
+
         Get.back();
+
         Get.snackbar("Berhasil", "Berhasil update profile",
             duration: const Duration(seconds: 2));
       } catch (e) {
@@ -55,7 +60,6 @@ class UpdateProfileController extends GetxController {
 
   Future<void> deleteProfile(String uid) async {
     try {
-
       await firestore.collection("pegawai").doc(uid).update({
         "profile": FieldValue.delete(),
       });
@@ -64,8 +68,6 @@ class UpdateProfileController extends GetxController {
       Get.snackbar("Berhasil", "Delete Profile Berhasil");
     } catch (e) {
       Get.snackbar("Terjadi Kesalahan", "Tidak dapat delete profile($e)");
-    }finally{
-
-    }
+    } finally {}
   }
 }
